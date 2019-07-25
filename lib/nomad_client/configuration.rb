@@ -13,6 +13,16 @@ module NomadClient
     # see https://gist.github.com/mislav/938183 for a quick example
     attr_accessor :ssl
 
+    attr_accessor :timeout
+    attr_accessor :open_timeout
+    attr_accessor :pool_size
+    attr_accessor :idle_timeout
+    attr_accessor :retry_change_requests
+    attr_accessor :retry_max
+    attr_accessor :retry_interval
+    attr_accessor :retry_randomness
+    attr_accessor :retry_backoff_factor
+
     DEFAULT_PORT          = 4646.freeze
     DEFAULT_API_BASE_PATH = '/v1'.freeze
     DEFAULT_SSL           = {}.freeze
