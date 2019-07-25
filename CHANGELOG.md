@@ -1,5 +1,8 @@
 Changelog for nomad_client.
 
+## 0.3.4
+* Use a persistent connection to Nomad host
+
 ## 0.3.3
 * Add support for parsing HCL job specs to JSON
 
