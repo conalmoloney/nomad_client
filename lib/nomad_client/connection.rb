@@ -12,11 +12,16 @@ module NomadClient
     end
 
     def connection
-      ::Faraday.new({ url: connection_url, ssl: configuration.ssl }) do |faraday|
+      @connection ||= ::Faraday.new({ url: connection_url, ssl: configuration.ssl }) do |faraday|
         faraday.request(:json)
         faraday.use(FaradayMiddleware::Mashify)
         faraday.response(:json, :content_type => /\bjson$/)
-        faraday.adapter(Faraday.default_adapter)
+        faraday.options.timeout = 5
+        faraday.options.open_timeout = 2
+        faraday.adapter :net_http_persistent, pool_size: 5 do |http|
+          http.idle_timeout = 100
+          http.retry_change_requests = true
+        end
       end
     end
 
