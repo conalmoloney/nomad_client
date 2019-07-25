@@ -42,7 +42,21 @@ module NomadClient
       def drain(id, enable: true)
         connection.post do |req|
           req.url "node/#{id}/drain"
-          req.params[:enable] = enable
+          req.body = {
+            "enable" => enable
+          }
+        end
+      end
+
+      ##
+      # Creates a new evaluation for the given node. This can be used to force a run of the scheduling logic
+      # https://www.nomadproject.io/api/nodes.html
+      #
+      # @param [String] id Specifies the UUID of the node. This must be the full UUID, not the short 8-character one. This is specified as part of the path
+      # @return [Faraday::Response] A faraday response from Nomad
+      def evaluate(id)
+        connection.post do |req|
+          req.url "node/#{id}/evaluate"
         end
       end
     end
