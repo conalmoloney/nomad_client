@@ -8,10 +8,10 @@ module NomadClient
     class Metrics < Path
 
       ##
-      # Lists all the deployments
-      # https://www.nomadproject.io/api/deployments.html
+      # The /metrics endpoint returns metrics for the current Nomad process.
+      # https://www.nomadproject.io/api/metrics.html
       #
-      # @param [String] prefix Specifies a string to filter deployments on based on an index prefix. This is specified as a querystring parameter.
+      # @param [String] format Specifies the metrics format to be other than the JSON default. This is specified as a querystring parameter.
       #
       # @return [Faraday::Response] A faraday response from Nomad
       def get(format: nil)

@@ -1,7 +1,7 @@
 require 'spec_helper'
 module NomadClient
-  module Api
-    RSpec.describe 'Metrics' do
+  module API
+    describe 'Metrics' do
       let!(:nomad_client) { NomadClient::Connection.new('http://nomad.local') }
 
       describe 'metrics' do
