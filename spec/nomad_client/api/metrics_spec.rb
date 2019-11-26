@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'byebug'
 module NomadClient
   module Api
     RSpec.describe 'Metrics' do
