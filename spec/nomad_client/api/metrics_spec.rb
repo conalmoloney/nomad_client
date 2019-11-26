@@ -20,22 +20,22 @@ module NomadClient
         end
 
         describe '#get' do
-          let(:prefix_params) { {} }
-          let(:block_receiver) { double(:block_receiver, params: prefix_params) }
-          context 'with no prefix' do
-            it 'should call get on the metrics endpoint with a nil prefix' do
+          let(:params) { {} }
+          let(:block_receiver) { double(:block_receiver, params: params) }
+          context 'with no param' do
+            it 'should call get on the metrics endpoint with a nil param' do
               expect(connection).to receive(:get).and_yield(block_receiver)
               expect(block_receiver).to receive(:url).with("metrics")
-              expect(prefix_params).to receive(:[]=).with(:format, nil)
+              expect(params).to receive(:[]=).with(:format, nil)
 
               nomad_client.metrics.get
             end
           end
-          context 'with a prefix' do
-            it 'should call get on the metrics endpoint with a prefix supplied' do
+          context 'with a param' do
+            it 'should call get on the metrics endpoint with a param supplied' do
               expect(connection).to receive(:get).and_yield(block_receiver)
               expect(block_receiver).to receive(:url).with("metrics")
-              expect(prefix_params).to receive(:[]=).with(:format, 'prometheus')
+              expect(params).to receive(:[]=).with(:format, 'prometheus')
 
               nomad_client.metrics.get(format: 'prometheus')
             end
