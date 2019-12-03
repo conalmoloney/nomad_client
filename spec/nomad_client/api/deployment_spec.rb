@@ -74,7 +74,7 @@ module NomadClient
             it 'should call post with deployment_id and an All boolean set to true on the deployment_id promote endpoint' do
               expect(connection).to receive(:post).and_yield(block_receiver)
               expect(block_receiver).to receive(:url).with("deployment/promote/#{deployment_id}")
-              expect(block_receiver).to receive(:body=).with({"All" => true, "Groups" => nil})
+              expect(block_receiver).to receive(:body=).with({"DeploymentID" => deployment_id, "All" => true, "Groups" => nil})
 
               nomad_client.deployment.promote(deployment_id, all: true)
             end
@@ -83,7 +83,7 @@ module NomadClient
             it 'should call post with deployment_id and an All boolean set to false and a set of groups on the deployment_id pause endpoint' do
               expect(connection).to receive(:post).and_yield(block_receiver)
               expect(block_receiver).to receive(:url).with("deployment/promote/#{deployment_id}")
-              expect(block_receiver).to receive(:body=).with({"All" => false, "Groups" => ['a-task-group']})
+              expect(block_receiver).to receive(:body=).with({"DeploymentID" => deployment_id, "All" => false, "Groups" => ['a-task-group']})
 
               nomad_client.deployment.promote(deployment_id, all: false, groups: ['a-task-group'])
             end
