@@ -87,6 +87,7 @@ module NomadClient
         connection.post do |req|
           req.url "deployment/promote/#{id}"
           req.body = {
+            "DeploymentID" => id,
             "All" => all,
             "Groups" => groups
           }
