@@ -1,4 +1,8 @@
 Changelog for nomad_client.
+## 0.3.5
+* Add DeploymentID to deployment/promote/:id requests
+* Add /metrics endpoints
+* Add a follow parameter for client/fs/stream/:alloc_id endpoint
 
 ## 0.3.4
 * Use a persistent connection to Nomad host
