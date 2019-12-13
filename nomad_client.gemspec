@@ -4,13 +4,14 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'nomad_client/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "nomad_client"
-  spec.version       = NomadClient::VERSION
-  spec.authors       = ["Jason Gellatly"]
-  spec.email         = ["jason.gellatly@bigcommerce.com"]
-  spec.summary       = %q{Client gem for interacting with Hashicorp's Nomad HTTP API}
-  spec.description   = %q{Client gem for interacting with Nomad HTTP API. Contains most endpoints as a thin wrapper around Faraday.}
-  spec.licenses      = ['MIT']
+  spec.name                  = "nomad_client"
+  spec.version               = NomadClient::VERSION
+  spec.authors               = ["Jason Gellatly"]
+  spec.email                 = ["jason.gellatly@bigcommerce.com"]
+  spec.summary               = %q{Client gem for interacting with Hashicorp's Nomad HTTP API}
+  spec.description           = %q{Client gem for interacting with Nomad HTTP API. Contains most endpoints as a thin wrapper around Faraday.}
+  spec.licenses              = ['MIT']
+  spec.required_ruby_version = '>= 2.3.0'
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.
@@ -34,7 +35,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "pry"
   spec.add_development_dependency "binding_of_caller"
   spec.add_development_dependency "yard"
-  spec.add_dependency 'faraday', '>= 0.9'
+  spec.add_dependency 'faraday', '~> 1.0.0.pre.rc1'
   spec.add_dependency 'faraday_middleware', '>= 0.10'
   spec.add_dependency 'hashie', '~> 3.4'
 

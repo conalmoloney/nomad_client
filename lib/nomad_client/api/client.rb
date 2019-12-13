@@ -72,14 +72,18 @@ module NomadClient
       # Note, this must be the full allocation ID, not the short 8-character one. This is specified as part of the path.
       # @param [Integer] offset The byte offset from where content will be read
       # @param [String] origin Applies the relative offset to either the start or end of the file
+      # @param [Boolean] follow Whether to tail the logs
       # @param [String] path The path of the file to read, relative to the root of the allocation directory
+      # @param [Proc] on_data a proc to be executed for each chunk of data received
       # @return [Faraday::Response] A faraday response from Nomad
-      def stream_file(alloc_id, offset, origin: 'start', path: '/')
+      def stream_file(alloc_id, offset, origin: 'start', follow: false, path: '/', on_data: nil)
         connection.get do |req|
           req.url "client/fs/stream/#{alloc_id}"
           req.params[:offset] = offset
           req.params[:origin] = origin
+          req.params[:follow] = follow
           req.params[:path]   = path
+          req.options.on_data = on_data
         end
       end
 
@@ -95,8 +99,9 @@ module NomadClient
       # @param [Integer] offset The byte offset from where content will be read
       # @param [String] origin Applies the relative offset to either the start or end of the file
       # @param [Boolean] plain Return just the plain text without framing. This can be useful when viewing logs in a browser
+      # @param [Proc] on_data a proc to be executed for each chunk of data received
       # @return [Faraday::Response] A faraday response from Nomad
-      def stream_logs(alloc_id, task, follow: false, type: 'stdout', offset: 0, origin: 'start', plain: false)
+      def stream_logs(alloc_id, task, follow: false, type: 'stdout', offset: 0, origin: 'start', plain: false, on_data: nil)
         connection.get do |req|
           req.url "client/fs/logs/#{alloc_id}"
           req.params[:task]   = task
@@ -105,6 +110,7 @@ module NomadClient
           req.params[:offset] = offset
           req.params[:origin] = origin
           req.params[:plain]  = plain
+          req.options.on_data = on_data
         end
       end
 

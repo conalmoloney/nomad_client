@@ -79,6 +79,7 @@ module NomadClient
             stream_file_params = {}
             offset           = 10
             origin           = 'end'
+            follow           = false
             path             = '/file.json'
 
             expect(connection).to receive(:get).and_yield(block_receiver)
@@ -86,7 +87,9 @@ module NomadClient
             allow(block_receiver).to receive(:params).and_return(stream_file_params)
             expect(stream_file_params).to receive(:[]=).with(:offset, offset)
             expect(stream_file_params).to receive(:[]=).with(:origin, origin)
+            expect(stream_file_params).to receive(:[]=).with(:follow, follow)
             expect(stream_file_params).to receive(:[]=).with(:path, path)
+            expect(block_receiver).to receive(:options).and_return(Faraday::RequestOptions.new)
 
             nomad_client.client.stream_file(allocation_id, offset, origin: origin, path: path)
           end
@@ -112,6 +115,7 @@ module NomadClient
             expect(stream_logs_params).to receive(:[]=).with(:offset, offset)
             expect(stream_logs_params).to receive(:[]=).with(:origin, origin)
             expect(stream_logs_params).to receive(:[]=).with(:plain, plain)
+            expect(block_receiver).to receive(:options).and_return(Faraday::RequestOptions.new)
 
             nomad_client.client.stream_logs(
               allocation_id,
