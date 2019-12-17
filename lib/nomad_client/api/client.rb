@@ -74,11 +74,12 @@ module NomadClient
       # @param [String] origin Applies the relative offset to either the start or end of the file
       # @param [String] path The path of the file to read, relative to the root of the allocation directory
       # @return [Faraday::Response] A faraday response from Nomad
-      def stream_file(alloc_id, offset, origin: 'start', path: '/')
+      def stream_file(alloc_id, offset, origin: 'start', follow: false, path: '/')
         connection.get do |req|
           req.url "client/fs/stream/#{alloc_id}"
           req.params[:offset] = offset
           req.params[:origin] = origin
+          req.params[:follow] = follow
           req.params[:path]   = path
         end
       end
