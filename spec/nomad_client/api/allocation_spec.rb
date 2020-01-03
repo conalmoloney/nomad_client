@@ -28,6 +28,26 @@ module NomadClient
             nomad_client.allocation.get(allocation_id)
           end
         end
+
+        describe '#restart' do
+          context 'task unspecified' do
+            it 'should post to allocation/:allocation_id/restart' do
+              expect(connection).to receive(:post).and_yield(block_receiver)
+              expect(block_receiver).to receive(:url).with("allocation/#{allocation_id}/restart")
+
+              nomad_client.allocation.restart(allocation_id)
+            end
+          end
+          context 'task specified' do
+            it 'should post to allocation/:allocation_id/restart with a payload' do
+              expect(connection).to receive(:post).and_yield(block_receiver)
+              expect(block_receiver).to receive(:url).with("allocation/#{allocation_id}/restart")
+              expect(block_receiver).to receive(:body=).with({ 'Task' => 'foo' })
+
+              nomad_client.allocation.restart(allocation_id, 'foo')
+            end
+          end
+        end
       end
     end
   end
