@@ -18,6 +18,19 @@ module NomadClient
           req.url "allocation/#{id}"
         end
       end
+
+      ##
+      # Restart an allocation or task in-place.
+      # https://www.nomadproject.io/api/allocations.html#restart-allocation
+      # @param [String] id The full UUID of the allocation
+      # @param [String] task [Optional] Task to be restarted. If unspecified, all tasks will be restarted.
+      # @return [Faraday::Response] A faraday response from Nomad
+      def restart(id, task = nil)
+        connection.post do |req|
+          req.url "allocation/#{id}/restart"
+          req.body = { 'Task' => task } unless task.nil?
+        end
+      end
     end
   end
 end
