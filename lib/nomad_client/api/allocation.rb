@@ -27,7 +27,7 @@ module NomadClient
       # @return [Faraday::Response] A faraday response from Nomad
       def restart(id, task = nil)
         connection.post do |req|
-          req.url "allocation/#{id}/restart"
+          req.url "client/allocation/#{id}/restart"
           req.body = { 'Task' => task } unless task.nil?
         end
       end
